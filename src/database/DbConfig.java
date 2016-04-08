@@ -1,83 +1,95 @@
 package database;
 
 import java.io.File;
-import java.util.Scanner;
+import java.io.IOException;
+
+import org.ini4j.Ini;
+import org.ini4j.Profile.Section;
 
 public class DbConfig {
-	private static String url;
-	private static String user;
-	private static String password;
-	private static String driverClass;
-
+	private static String dbhost;
+	private static String dbuser;
+	private static String dbpass; 
+	private static String dbname; 
+	private static String dburl;
+	private static String dbdriver;
+	private static String dbdriverclass;
+	private static String dbport;
+	
 	/**
-	 * Fetches the values from the DbConectionFactory.ini file.
-	 * If DbConectionFactory.ini does not exist, create the file in the /resources/ folder with the following:
-	 * 		URL = jdbc:mysql://localhost:3306/gateway_server
-	 * 		USER = <your db username>
-	 * 		PASSWORD = <your db password>
-	 * 		DRIVER_CLASS = com.mysql.jdbc.Driver
+	 * Fetches the values from the config.ini file.
 	 */
-	public static void initialize(){
+	public static void initialize() {
+		// Set filepath of .INI file
+		File f = new File(".\\resources\\config.ini");
 		try {
-			File f = new File(".\\resources\\DbConnectionFactory.ini");
-			Scanner s = new Scanner(f);
-
-			while (s.hasNextLine()){
-				String currentLine = s.nextLine().trim();
-				String[] pair = currentLine.split("=");
-				String var = pair[0].trim().toUpperCase();
-				String value = pair[1].trim();
-				switch(var){
-				case "URL": 
-					url = value;
-					break;
-				case "USER":
-					user = value;
-					break;
-				case "PASSWORD":
-					password = value;
-					break;
-				case "DRIVER_CLASS":
-					driverClass = value;
-					break;
-				default: 
-					System.err.println("Unknown variable [" + var + "] being assigned with " + value);
-					break;
-				}
-			}
-
-			s.close();
-		}catch(Exception e){
+			Ini ini = new Ini(f);
+			
+			// Set the section you want to access data from
+			Section section = ini.get("DATABASE");
+			
+			// Get data
+			dbhost = section.get("dbhost");
+			dbuser = section.get("dbuser");
+			dbpass = section.get("dbpass");
+			dbname = section.get("dbname");
+			dburl = section.get("dburl");
+			dbdriver = section.get("dbdriver");
+			dbport = section.get("dbport");
+			
+			// jdbc:mysql://<dbhost>:<dbport>/<dbname>
+			dbdriverclass = dburl+"//"+dbhost+":"+dbport+"/"+dbname;
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
-	 * @return the url
+	 * @return the dbhost
 	 */
-	public static String getUrl() {
-		return url;
+	public static String getDbhost() {
+		return dbhost;
 	}
 
 	/**
-	 * @return the user
+	 * @return the dbuser
 	 */
-	public static String getUser() {
-		return user;
+	public static String getDbuser() {
+		return dbuser;
 	}
 
 	/**
-	 * @return the password
+	 * @return the dbpass
 	 */
-	public static String getPassword() {
-		return password;
+	public static String getDbpass() {
+		return dbpass;
 	}
 
 	/**
-	 * @return the driver_class
+	 * @return the dbname
 	 */
-	public static String getDriverClass() {
-		return driverClass;
+	public static String getDbname() {
+		return dbname;
 	}
 
+	/**
+	 * @return the dburl
+	 */
+	public static String getDburl() {
+		return dburl;
+	}
+
+	/**
+	 * @return the dbdriver
+	 */
+	public static String getDbdriver() {
+		return dbdriver;
+	}
+	
+	/**
+	 * @return the dbdriverclass
+	 */
+	public static String getDbdriverclass() {
+		return dbdriverclass;
+	}
 }

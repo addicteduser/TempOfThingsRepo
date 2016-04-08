@@ -8,18 +8,13 @@ public class ConnectionFactory {
 
 	private static ConnectionFactory instance = new ConnectionFactory();
 
-	//private constructor
+	/**
+	 * Private constructor
+	 */
 	private ConnectionFactory() {
-		/* Fetches the values from the DbConectionFactory.ini file.
-		 * If DbConectionFactory.ini does not exist, create the file in the /resources/ folder with the following:
-		 * 		URL = jdbc:mysql://localhost:3306/gateway_server
-		 * 		USER = <your db username>
-		 * 		PASSWORD = <your db password>
-		 * 		DRIVER_CLASS = com.mysql.jdbc.Driver
-		 */
 		DbConfig.initialize();
 		try {
-			Class.forName(DbConfig.getDriverClass());
+			Class.forName(DbConfig.getDbdriverclass());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -27,17 +22,21 @@ public class ConnectionFactory {
 
 	private Connection createConnection() {
 		Connection connection = null;
+		
 		try {
-			connection = DriverManager.getConnection(DbConfig.getUrl(), DbConfig.getUser(), DbConfig.getPassword());
-
+			connection = DriverManager.getConnection(DbConfig.getDburl(), DbConfig.getDbuser(), DbConfig.getDbpass());
 		} catch (SQLException e) {
-			System.out.println("ERROR: Unable to Connect to Database.");
+			System.err.println("Unable to Connect to Database.");
 		}
+		
 		return connection;
 	}
 
+	/**
+	 * @return the Connection instance
+	 */
 	public static Connection getConnection() {
 		return instance.createConnection();
 	}
-
+	
 }
