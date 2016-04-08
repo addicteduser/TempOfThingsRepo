@@ -72,6 +72,7 @@ public class FrameUI extends JFrame {
 	}
 	
 	private void initGUI() {
+		setTitle("Temperature of Things");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 290);
@@ -99,8 +100,9 @@ public class FrameUI extends JFrame {
 		pnlCurr1.add(lblCurr1);
 		
 		lblTemp1 = new JLabel("<temp>");
+		lblTemp1.setForeground(Color.BLUE);
 		lblTemp1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblTemp1.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblTemp1.setFont(new Font("Tahoma", Font.BOLD, 40));
 		lblTemp1.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlCurr1.add(lblTemp1);
 		
@@ -111,6 +113,7 @@ public class FrameUI extends JFrame {
 		pnlCurr1.add(lblAsOf1);
 		
 		lblTimestamp1 = new JLabel("<timestamp>");
+		lblTimestamp1.setForeground(Color.BLUE);
 		lblTimestamp1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblTimestamp1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimestamp1.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -128,8 +131,9 @@ public class FrameUI extends JFrame {
 		pnlCurr2.add(lblCurr2);
 		
 		lblTemp2 = new JLabel("<temp>");
+		lblTemp2.setForeground(Color.BLUE);
 		lblTemp2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTemp2.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblTemp2.setFont(new Font("Tahoma", Font.BOLD, 40));
 		lblTemp2.setAlignmentX(0.5f);
 		pnlCurr2.add(lblTemp2);
 		
@@ -140,6 +144,7 @@ public class FrameUI extends JFrame {
 		pnlCurr2.add(lblAsOf2);
 		
 		lblTimestamp2 = new JLabel("<timestamp>");
+		lblTimestamp2.setForeground(Color.BLUE);
 		lblTimestamp2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimestamp2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTimestamp2.setAlignmentX(0.5f);
@@ -224,14 +229,21 @@ public class FrameUI extends JFrame {
 		contentPane.add(btnRefresh, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Adds a user-defined ActionListener to btnRefresh.
+	 * @param l
+	 */
 	public void addBtnRefreshActionListener(ActionListener l) {
 		btnRefresh.addActionListener(l);
 	}
 	
-	public int getTabNumber() {
-		return tabbedPane.getSelectedIndex();
-	}
-	
+	/**
+	 * Updates the content of Tab #1.
+	 * @param ts1 timestamp of sensor #1
+	 * @param td1 temperature data of sensor #1
+	 * @param ts2 timestamp of sensor #2
+	 * @param td2 temperature data of sensor #2
+	 */
 	public void setCurrentTemp(String ts1, String td1, String ts2, String td2) {
 		lblTimestamp1.setText(ts1);
 		lblTemp1.setText(td1);
@@ -239,6 +251,11 @@ public class FrameUI extends JFrame {
 		lblTemp2.setText(td2);
 	}
 	
+	/**
+	 * Updates the content of Tab #2 and Tab #3.
+	 * @param model1 table model of sensor #1
+	 * @param model2 table model of sensor #2
+	 */
 	public void setPastTemp(DefaultTableModel model1, DefaultTableModel model2) {
 		tblSensor1.setModel(model1);
 		tblSensor2.setModel(model2);

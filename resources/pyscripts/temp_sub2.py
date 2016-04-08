@@ -3,14 +3,16 @@ import paho.mqtt.client as mqtt
 # Database connection
 import temp_dbconnector as db
 # Constants
-import temp_main as main
+import temp_config as config
+
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
-    print("Connected with result code"+ str(rc))
-    client.subscribe(main.topic2)
+    print("S2: Connected with result code"+ str(rc))
+    client.subscribe(config.topic2)
 # Subscribing in on_connect() means that if we lose the connection and
 # reconnect then subscriptions will be renewed.
+
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
@@ -27,7 +29,7 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 # Define host/ip address where sensor is connected
-client.connect(main.host2, 1883, 60)
+client.connect(config.host2, config.port, 60)
 
 # Run subscriber indefinitely
 client.loop_forever()

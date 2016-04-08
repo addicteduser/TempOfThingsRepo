@@ -9,7 +9,7 @@ public class ConnectionFactory {
 	private static ConnectionFactory instance = new ConnectionFactory();
 
 	/**
-	 * Private constructor
+	 * Private constructor.
 	 */
 	private ConnectionFactory() {
 		DbConfig.initialize();
@@ -20,6 +20,10 @@ public class ConnectionFactory {
 		}
 	}
 
+	/**
+	 * Creates the connection instance.
+	 * @return
+	 */
 	private Connection createConnection() {
 		Connection connection = null;
 		

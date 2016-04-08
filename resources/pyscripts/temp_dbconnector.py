@@ -1,7 +1,7 @@
 # For database manipulation
 import MySQLdb
 # Constants
-import temp_main as main
+import temp_config as config
 
 
 # Inserts data to sensor1
@@ -35,7 +35,7 @@ def addDataToSensor(topic,tempdata):
 # Opens a connection to the database
 def open_connection():
     global db, cursor
-    db = MySQLdb.connect(main.dbhost, main.dbuser, main.dbpass, main.dbname)
+    db = MySQLdb.connect(config.dbhost, config.dbuser, config.dbpass, config.dbname)
     cursor = db.cursor()
     print("Open connection...")
 

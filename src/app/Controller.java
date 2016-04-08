@@ -12,44 +12,64 @@ import view.FrameUI;
 
 public class Controller {
 	private static FrameUI frame = new FrameUI();
-	
+
 	public Controller() {
-		// Build database + content
+		updateTabs();
 		frame.addBtnRefreshActionListener(new BtnRefreshAction());
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 	
-	class BtnRefreshAction implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String[] colNames = new String[] {"Timestamp", "Temperature"};
-			
-			// TAB #1: get current temperature for both sensors
-			Sensor sensor1 = SensorDAO.getCurrentTemperature(1);
-			Sensor sensor2 = SensorDAO.getCurrentTemperature(2);
+	/**
+	 * Gets the latest data from the database.
+	 */
+	protected void updateTabs() {
+		// TAB #1: get current temperature for both sensors
+		Sensor sensor1 = SensorDAO.getCurrentTemperature(1);
+		Sensor sensor2 = SensorDAO.getCurrentTemperature(2);
 
-			// TAB #2: get past temp data for sensor #1
-			ArrayList<Sensor> sensors1 = SensorDAO.getPastTemperature(1);
-			DefaultTableModel model1 = new DefaultTableModel();
-			model1.setColumnIdentifiers(colNames);
-			for (Sensor s : sensors1) {
-				Object[] row = new Object[] {s.getTimestamp(), s.getTempdata()};
-				model1.addRow(row);
+		// TAB #2: get past temp data for sensor #1
+		DefaultTableModel model1 = buildTableModel(SensorDAO.getPastTemperature(1));
+
+		// TAB #2: get past temp data for sensor #2
+		DefaultTableModel model2 = buildTableModel(SensorDAO.getPastTemperature(2));			
+
+		// Pass data to UI
+		frame.setCurrentTemp(sensor1.getTimestamp().toString(), Float.toString(sensor1.getTempdata()), sensor2.getTimestamp().toString(), Float.toString(sensor2.getTempdata()));
+		frame.setPastTemp(model1, model2);
+	}
+	
+	/**
+	 * Builds the DefaultTableModel given an ArrayList<Sensor>
+	 * @param sensors
+	 * @return
+	 */
+	private DefaultTableModel buildTableModel(ArrayList<Sensor> sensors) {
+		// Create model instance with non-editable cells
+		DefaultTableModel model = new DefaultTableModel() {
+			boolean[] columnEditables = new boolean[] {
+					false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
 			}
-			
-			// TAB #2: get past temp data for sensor #2
-			ArrayList<Sensor> sensors2 = SensorDAO.getPastTemperature(2);
-			DefaultTableModel model2 = new DefaultTableModel();			
-			model2.setColumnIdentifiers(colNames);			
-			for (Sensor s : sensors2) {
-				Object[] row = new Object[] {s.getTimestamp(), s.getTempdata()};
-				model2.addRow(row);
-			}
-			
-			// Pass data to UI
-			frame.setCurrentTemp(sensor1.getTimestamp().toString(), Float.toString(sensor1.getTempdata()), sensor2.getTimestamp().toString(), Float.toString(sensor2.getTempdata()));
-			frame.setPastTemp(model1, model2);
+		};
+
+		// Fill in table content
+		String[] colNames = new String[] {"Timestamp", "Temperature"};
+		model.setColumnIdentifiers(colNames);
+		for (Sensor s : sensors) {
+			Object[] row = new Object[] {s.getTimestamp(), s.getTempdata()};
+			model.addRow(row);
 		}
 
+		return model;
+	}
+
+	class BtnRefreshAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {			
+			updateTabs();
+		}
 	}
 }

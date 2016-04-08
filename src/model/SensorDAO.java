@@ -16,6 +16,11 @@ public class SensorDAO {
 	private static String query = "";
 	private static ResultSet rs = null;
 	
+	/**
+	 * Gets the latest timestamp and temperature data.
+	 * @param sensor
+	 * @return
+	 */
 	public static Sensor getCurrentTemperature(int sensor) {
 		Sensor temp = null;
 		String tablename = "";
@@ -47,6 +52,11 @@ public class SensorDAO {
 		return temp;
 	}
 	
+	/**
+	 * Gets the latest 10 timestamp and temperature data.
+	 * @param sensor
+	 * @return
+	 */
 	public static ArrayList<Sensor> getPastTemperature(int sensor) {
 		ArrayList<Sensor> sensors = new ArrayList<Sensor>();
 		String tablename = "";
