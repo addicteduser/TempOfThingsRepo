@@ -1,18 +1,27 @@
 package model;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class Sensor {
-	private String timestamp;
+	private Timestamp timestamp;
 	private float tempdata;
+	
+	public Sensor(Timestamp ts, float td) {
+		timestamp = ts;
+		tempdata = td;
+	}
+	
 	/**
 	 * @return the timestamp
 	 */
-	public String getTimestamp() {
+	public Timestamp getTimestamp() {
 		return timestamp;
 	}
 	/**
 	 * @param timestamp the timestamp to set
 	 */
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
 	/**

@@ -16,6 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTabbedPane;
 
@@ -47,6 +50,7 @@ public class FrameUI extends JFrame {
 	public FrameUI() {
 		initGUI();
 	}
+	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -62,5 +66,8 @@ public class FrameUI extends JFrame {
 		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(btnRefresh, BorderLayout.SOUTH);
 	}
-
+	
+	public void addBtnRefreshActionListener(ActionListener l) {
+		btnRefresh.addActionListener(l);
+	}
 }

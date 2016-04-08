@@ -13,8 +13,8 @@ public class DbConfig {
 	private static String dbname; 
 	private static String dburl;
 	private static String dbdriver;
-	private static String dbdriverclass;
 	private static String dbport;
+	private static String dbconnect;
 	
 	/**
 	 * Fetches the values from the config.ini file.
@@ -38,7 +38,7 @@ public class DbConfig {
 			dbport = section.get("dbport");
 			
 			// jdbc:mysql://<dbhost>:<dbport>/<dbname>
-			dbdriverclass = dburl+"//"+dbhost+":"+dbport+"/"+dbname;
+			dbconnect = dburl+"//"+dbhost+":"+dbport+"/"+dbname;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -89,7 +89,7 @@ public class DbConfig {
 	/**
 	 * @return the dbdriverclass
 	 */
-	public static String getDbdriverclass() {
-		return dbdriverclass;
+	public static String getDbconnect() {
+		return dbconnect;
 	}
 }

@@ -14,7 +14,7 @@ public class ConnectionFactory {
 	private ConnectionFactory() {
 		DbConfig.initialize();
 		try {
-			Class.forName(DbConfig.getDbdriverclass());
+			Class.forName(DbConfig.getDbdriver());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -24,9 +24,9 @@ public class ConnectionFactory {
 		Connection connection = null;
 		
 		try {
-			connection = DriverManager.getConnection(DbConfig.getDburl(), DbConfig.getDbuser(), DbConfig.getDbpass());
+			connection = DriverManager.getConnection(DbConfig.getDbconnect(), DbConfig.getDbuser(), DbConfig.getDbpass());
 		} catch (SQLException e) {
-			System.err.println("Unable to Connect to Database.");
+			e.printStackTrace();
 		}
 		
 		return connection;
