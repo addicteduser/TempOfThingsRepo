@@ -21,6 +21,11 @@ import javax.swing.JSeparator;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.ScrollPaneConstants;
 
 public class FrameUI extends JFrame {
 
@@ -40,6 +45,8 @@ public class FrameUI extends JFrame {
 	private JLabel lblTemp2;
 	private JLabel lblAsOf2;
 	private JLabel lblTimestamp2;
+	private JTable tblSensor1;
+	private JTable tblSensor2;
 
 	/**
 	 * Launch the application.
@@ -67,7 +74,7 @@ public class FrameUI extends JFrame {
 	private void initGUI() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 290);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -139,10 +146,78 @@ public class FrameUI extends JFrame {
 		pnlCurr2.add(lblTimestamp2);
 		
 		pnlTab2 = new JPanel();
+		pnlTab2.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		tabbedPane.addTab("Sensor #1", null, pnlTab2, null);
+		pnlTab2.setLayout(new BorderLayout(0, 0));
+		
+		tblSensor1 = new JTable();
+		tblSensor1.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"Timestamp", "Temperature"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tblSensor1.getColumnModel().getColumn(0).setResizable(false);
+		tblSensor1.getColumnModel().getColumn(1).setResizable(false);
+		tblSensor1.setRowSelectionAllowed(false);
+		JScrollPane scrollPane1 = new JScrollPane(tblSensor1);
+		scrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		pnlTab2.add(scrollPane1, BorderLayout.CENTER);
 		
 		pnlTab3 = new JPanel();
+		pnlTab3.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		tabbedPane.addTab("Sensor #2", null, pnlTab3, null);
+		pnlTab3.setLayout(new BorderLayout(0, 0));
+		
+		tblSensor2 = new JTable();
+		tblSensor2.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"Timestamp", "Temperature"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tblSensor2.getColumnModel().getColumn(0).setResizable(false);
+		tblSensor2.getColumnModel().getColumn(1).setResizable(false);
+		tblSensor2.setRowSelectionAllowed(false);
+		JScrollPane scrollPane2 = new JScrollPane(tblSensor2);
+		scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		pnlTab3.add(scrollPane2);
 		
 		btnRefresh = new JButton("Refresh");
 		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -162,5 +237,10 @@ public class FrameUI extends JFrame {
 		lblTemp1.setText(td1);
 		lblTimestamp2.setText(ts2);
 		lblTemp2.setText(td2);
+	}
+	
+	public void setPastTemp(DefaultTableModel model1, DefaultTableModel model2) {
+		tblSensor1.setModel(model1);
+		tblSensor2.setModel(model2);
 	}
 }

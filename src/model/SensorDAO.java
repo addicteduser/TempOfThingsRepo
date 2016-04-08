@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import database.ConnectionFactory;
 import database.DbUtil;
@@ -44,5 +45,39 @@ public class SensorDAO {
 		}		
 		
 		return temp;
+	}
+	
+	public static ArrayList<Sensor> getPastTemperature(int sensor) {
+		ArrayList<Sensor> sensors = new ArrayList<Sensor>();
+		String tablename = "";
+		
+		if (sensor == 1)
+			tablename = "sensor1";
+		else
+			tablename = "sensor2";
+		
+		query = "SELECT * FROM "+tablename+" ORDER BY timestamp DESC LIMIT 10";
+		
+		conn = ConnectionFactory.getConnection();
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				Timestamp timestamp = rs.getTimestamp("timestamp");
+				float tempdata = rs.getFloat("temperature");
+				Sensor temp = new Sensor(timestamp, tempdata);
+				sensors.add(temp);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+			DbUtil.close(rs);
+			DbUtil.close(stmt);
+			DbUtil.close(conn);
+		}		
+		
+		return sensors;
 	}
 }
