@@ -1,8 +1,8 @@
-import test_pub1 as pub1
-#import temp_pub1 as pub1
+import test_pub1 as pub1	# Synthetic data
+#import temp_pub1 as pub1	# From sensor
 
-import test_pub2 as pub2
-#import temp_pub2 as pub2
+import test_pub2 as pub2	# Synthetic data
+#import temp_pub2 as pub2	# From sensor
 
 import temp_sub1 as sub1
 import temp_sub2 as sub2

@@ -18,11 +18,7 @@ def on_connect(client, userdata, rc):
 def on_message(client, userdata, msg):
     print("-----")
     print("Topic: " + msg.topic + " // Message: " + str(msg.payload))
-    threadLock.acquire()
-    print("S1 LOCK")
-    db.addDataToSensor1(float(msg.payload))
-    print("S1 RELEASE")
-    threadLock.release()
+    db.addDataToSensor(2, float(msg.payload))
 
 
 class SubThread(threading.Thread):
@@ -30,8 +26,6 @@ class SubThread(threading.Thread):
         print("Running SUBSCRIBER 2...")
         start_subscriber()
 
-
-threadLock = threading.Lock()
 
 # Subscribe
 def start_subscriber():

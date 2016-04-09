@@ -1,16 +1,15 @@
-float randNum1;
-float randNum2;
+long randNum;
 
 void setup(){
   Serial.begin(9600);
 }
 
-void loop(){
+void loop(){ 
   // Generate random numbers
-  randNum1 = random(30);
+  randNum = random(30.00);
   
   // Send data
-  Serial.println(randNum1); // tempdata1
+  Serial.println(randNum);
   
   // Delay
   delay(5000);
