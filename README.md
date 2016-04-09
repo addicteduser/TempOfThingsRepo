@@ -12,19 +12,19 @@ A project for the Internet of Things class that makes use of multiple sensors an
 * paho-mqtt (to import paho) https://pypi.python.org/pypi/paho-mqtt/1.1
 * mysqldb (to be able to save in the database) https://pypi.python.org/pypi/MySQL-python/1.2.5
 * java
-* jdbc mysql-java connector
-* ini4j to easily parse .ini config files http://ini4j.sourceforge.net/index.html
+* jdbc mysql-java connector (included in /lib/)
+* ini4j to easily parse .ini config files http://ini4j.sourceforge.net/index.html (included in /lib/)
 * mysql server
 * mosquitto http://mosquitto.org/download/
 
 ## How to Use
 
-* Set up arduino/sensors
+* Set up arduino/sensors (see /resources/arduino/)
 * Start the mysql server
-* Set up the database
+* Set up the database (see /resources/sqlscripts/)
 * Start the mqtt broker
-* Run the following python scripts
+* Run the following python scripts (see /resources/pyscripts/)
 	* temp_pub.py
 	* temp_sub1.py
 	* temp_sub2.py
-* Run the Driver.java
+* Run the Driver.java (see /src/)
