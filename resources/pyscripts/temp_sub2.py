@@ -8,7 +8,7 @@ import temp_config as config
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
-    print("S2: Connected with result code"+ str(rc))
+    print("[RUNNING S2] Connected with result code: "+ str(rc))
     client.subscribe(config.topic2)
 # Subscribing in on_connect() means that if we lose the connection and
 # reconnect then subscriptions will be renewed.
