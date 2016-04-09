@@ -6,24 +6,30 @@ import paho.mqtt.client as mqtt
 import serial
 # Constants
 import temp_config as config
+import threading
 
 
-print("Running PUBLISHER 1...")
+class PubThread(threading.Thread):
+    def run(self):
+        print("Running PUBLISHER 1...")
+        start_publisher()
 
-# Get string from sensor1
-ser = serial.Serial(config.serialport1, config.baudrate)
 
-# Publish
-while True:
-    # Receive data from the sensor1
-    temp = ser.readline()
+def start_publisher():
+    # Get string from sensor1
+    ser = serial.Serial(config.serialport1, config.baudrate)
 
-    mqttc = mqtt.Client("python pub")
+    # Publish
+    while True:
+        # Receive data from the sensor1
+        temp = ser.readline()
 
-    print("Connecting to host1 [" + config.host1 + ":" + config.mqttport + "]")
-    mqttc.connect(config.host1, config.mqttport)
+        mqttc = mqtt.Client("python pub")
 
-    print("Publishing to topic1 [" + config.topic1 + "] the message [" + str(temp).strip() + "]")
-    mqttc.publish(config.topic1, str(temp).strip(), int(config.qos))
+        print("Connecting to host1 [" + config.host1 + ":" + config.mqttport + "]")
+        mqttc.connect(config.host1, config.mqttport)
 
-    print("-----")
+        print("Publishing to topic1 [" + config.topic1 + "] the message [" + str(temp).strip() + "]")
+        mqttc.publish(config.topic1, str(temp).strip(), int(config.qos))
+
+        print("-----")

@@ -11,7 +11,7 @@ import time
 import threading
 
 
-class PubThread1(threading.Thread):
+class PubThread(threading.Thread):
     def run(self):
         print("Running TEST PUBLISHER 2...")
         start_publisher()

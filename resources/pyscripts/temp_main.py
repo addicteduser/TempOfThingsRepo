@@ -1,12 +1,22 @@
-import thread
 import test_pub1 as pub1
+#import temp_pub1 as pub1
+
 import test_pub2 as pub2
+#import temp_pub2 as pub2
+
+import temp_sub1 as sub1
+import temp_sub2 as sub2
 
 
-t1 = pub1.PubThread1()
-t2 = pub2.PubThread1()
+# Create threads
+s1 = sub1.SubThread()
+s2 = sub2.SubThread()
+p1 = pub1.PubThread()
+p2 = pub2.PubThread()
 
-t1.start()
-t2.start()
 
-print ("hi")
+# Start threads
+s1.start()
+s2.start()
+p1.start()
+p2.start()

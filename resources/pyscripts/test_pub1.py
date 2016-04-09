@@ -10,7 +10,7 @@ import random
 import time
 import threading
 
-class PubThread1(threading.Thread):
+class PubThread(threading.Thread):
     def run(self):
         print("Running TEST PUBLISHER 1...")
         start_publisher()

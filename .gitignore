@@ -1,3 +1,5 @@
+.idea
+
 # Java bin
 *.class
 
@@ -57,4 +59,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-/MiniMipsV2/dist/

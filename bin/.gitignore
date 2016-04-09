@@ -1,4 +1,2 @@
-/database/
-/view/
-/model/
-/app/
+.idea
+/.gitignore

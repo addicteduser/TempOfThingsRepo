@@ -4,7 +4,7 @@ import paho.mqtt.client as mqtt
 import temp_dbconnector as db
 # Constants
 import temp_config as config
-
+import threading
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
@@ -18,18 +18,32 @@ def on_connect(client, userdata, rc):
 def on_message(client, userdata, msg):
     print("-----")
     print("Topic: " + msg.topic + " // Message: " + str(msg.payload))
-    db.addDataToSensor2(float(msg.payload))
+    threadLock.acquire()
+    print("S1 LOCK")
+    db.addDataToSensor1(float(msg.payload))
+    print("S1 RELEASE")
+    threadLock.release()
 
 
-# Create broker
-client = mqtt.Client()
+class SubThread(threading.Thread):
+    def run(self):
+        print("Running SUBSCRIBER 2...")
+        start_subscriber()
 
-# Define callbacks
-client.on_connect = on_connect
-client.on_message = on_message
 
-# Define host/ip address where sensor is connected
-client.connect(config.host2, config.mqttport, 60)
+threadLock = threading.Lock()
 
-# Run subscriber indefinitely
-client.loop_forever()
+# Subscribe
+def start_subscriber():
+    # Create broker
+    client = mqtt.Client()
+
+    # Define callbacks
+    client.on_connect = on_connect
+    client.on_message = on_message
+
+    # Define host/ip address where sensor is connected
+    client.connect(config.host2, config.mqttport, 60)
+
+    # Run subscriber indefinitely
+    client.loop_forever()
