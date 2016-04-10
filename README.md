@@ -5,7 +5,7 @@ A project for the Internet of Things class (CSC700M AY 15-16) that makes use of 
 
 ## Pre-requirements
 * Python v2.7
-	* 3.x does not have support for `mysqld` yet
+	* 3.x does not have support for `MySQLdb` yet
 	* https://www.python.org/downloads/
 * `PySerial`
 	* for serial comminication with the Arduino
