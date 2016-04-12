@@ -38,6 +38,7 @@ A project for the Internet of Things class (CSC700M AY 15-16) that makes use of 
 * Start the mysql server
 * Set up the database *(see /resources/sqlscripts/)*
 * Start the mqtt broker
+* Change the necessary detailes in the `config.ini` *(see /resources/)*
 * Run the `temp_main.py` to invoke the Publisher and Subscriber *(see /resources/pyscripts/)*
 	* Choose which Publisher you'd like to try: test_pub or temp_pub
 * Run the `Driver.java` *(see /src/)*
