@@ -1,7 +1,7 @@
 # Temperature of Things
 
 ## Synopsis
-A project for the Internet of Things class (CSC700M AY 15-16) that makes use of multiple sensors and an MQTT broker. This is implemented with Java (user interface), Python (serial communication with sensor; MQTT broker publisher and subscriber), and MySQL (database).
+A project for the Internet of Things class (CSC700M AY 15-16) that makes use of multiple sensors and an MQTT broker. This is implemented with Java (user interface), Python (serial communication with sensor; MQTT broker publisher and subscriber), and MySQL (database). See `IoT Project Specs.pdf` for more info.
 
 ## Pre-requirements
 * Python v2.7
